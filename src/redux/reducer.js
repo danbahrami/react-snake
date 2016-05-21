@@ -1,6 +1,6 @@
 import createReducer from "./reducerCreator"
 import initialState from "./initialState"
-import { createBoard, createSnake, createFruit, getNextSnake, getNextSnakeHead, isCell } from "../utils"
+import { createBoard, createSnake, createFruit, getNextSnake, getNextSnakeHead, isGameOver, isCell } from "../utils"
 
 export default createReducer({
     "KEYBOARD_UP_ARROW"    : (state) => {
@@ -34,14 +34,23 @@ export default createReducer({
         }
     },
     "TICK"                 : (state) => {
+        let snake = [...state.snake]
+        let fruit = {...state.fruit}
+
         const snakeHead = getNextSnakeHead(state.snake, state.direction)
-        const hasJustEaten = isCell(snakeHead, state.fruit)
-        const snake = getNextSnake(state.snake, snakeHead, hasJustEaten)
+        const isGameLost = isGameOver(snakeHead, state.snake, state.board.width, state.board.height)
+
+        if (!isGameLost) {
+            const hasJustEaten = isCell(snakeHead, fruit)
+            snake = getNextSnake(state.snake, snakeHead, hasJustEaten)
+            fruit = hasJustEaten ? createFruit(state.board.cells, snake) : state.fruit
+        }
 
         return {
             ...state,
-            elapsed : state.elapsed + 1,
-            fruit   : hasJustEaten ? createFruit(state.board.cells, snake) : state.fruit,
+            elapsed    : state.elapsed + 1,
+            gameStatus : isGameLost ? "GAME_LOST" : "IN_PROGRESS",
+            fruit,
             snake
         }
     },

@@ -56,6 +56,22 @@ export const getNextSnakeHead = (snake, direction) => {
     }
 }
 
+export const isGameOver = (nextSnakeHead, snake, boardWidth, boardHeight) => {
+    if(isCellInArray(nextSnakeHead, snake)) {
+        return true
+    }
+
+    if(nextSnakeHead.x < 0 || nextSnakeHead.x >= boardWidth) {
+        return true
+    }
+
+    if(nextSnakeHead.y < 0 || nextSnakeHead.y >= boardHeight) {
+        return true
+    }
+    
+    return false
+}
+
 export const isCell = (cell1, cell2) => {
     return cell1.x === cell2.x && cell1.y === cell2.y
 }
