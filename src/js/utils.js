@@ -1,7 +1,5 @@
-export const createBoard = (pixelWidth, pixelHeight) => {
+export const createBoard = (width, height) => {
     let cells = []
-    const width = Math.floor(pixelWidth / 10)
-    const height = Math.floor(pixelHeight / 10)
 
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
@@ -68,8 +66,27 @@ export const isGameOver = (nextSnakeHead, snake, boardWidth, boardHeight) => {
     if(nextSnakeHead.y < 0 || nextSnakeHead.y >= boardHeight) {
         return true
     }
-    
+
     return false
+}
+
+export const getNextDirection = (current, next, gameStatus) => {
+    if(gameStatus !== "IN_PROGRESS") {
+        return current
+    }
+
+    const oppositeDirections = {
+        "UP" : "DOWN",
+        "DOWN" : "UP",
+        "LEFT" : "RIGHT",
+        "RIGHT" : "LEFT"
+    }
+
+    return oppositeDirections[next] === current ? current : next
+}
+
+export const getTickInterval = (level) => {
+    return 340 - (level * 30)
 }
 
 export const isCell = (cell1, cell2) => {
@@ -86,19 +103,4 @@ export const createCell = (x, y) => {
 
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-export function debounce(func, wait, immediate) {
-    var timeout
-    return function () {
-        var context = this, args = arguments
-        var later = function () {
-            timeout = null
-            if (!immediate) func.apply(context, args)
-        }
-        var callNow = immediate && !timeout
-        clearTimeout(timeout)
-        timeout = setTimeout(later, wait)
-        if (callNow) func.apply(context, args)
-    }
 }

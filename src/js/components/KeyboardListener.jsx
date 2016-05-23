@@ -12,6 +12,12 @@ class KeyboardListener extends React.Component {
     }
 
     dispatchKeyboardActions(event) {
+        if(event.code.indexOf("Digit") !== -1) {
+            const digit = parseInt(event.code[event.code.length - 1])
+            this.props.dispatch(actions.keyboardDigit(digit))
+            return
+        }
+
         switch (event.code) {
             case "ArrowUp" :
                 this.props.dispatch(actions.keyboardUpArrow())
