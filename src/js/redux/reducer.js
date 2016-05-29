@@ -1,7 +1,6 @@
 import createReducer from "./reducerCreator"
 import initialState from "./initialState"
 import {
-    createBoard,
     createSnake,
     createFruit,
     getNextSnake,
@@ -12,18 +11,17 @@ import {
 } from "../utils"
 
 const setupNewGame = (state, width, height) => {
-    const board = createBoard(width, height)
-    const snake = createSnake(5, board.width, board.height)
+    const snake = createSnake(5, width, height)
     const fruit = createFruit(board.cells, snake)
 
     return {
         ...state,
-        direction : "RIGHT",
+        direction     : "RIGHT",
         nextDirection : "RIGHT",
-        gameStatus : "NOT_STARTED",
-        elapsed : 0,
-        points : 0,
-        board,
+        gameStatus    : "NOT_STARTED",
+        board         : {width, height},
+        elapsed       : 0,
+        points        : 0,
         fruit,
         snake
     }
@@ -72,7 +70,7 @@ export default createReducer({
                 }
         }
     },
-    "KEYBOARD_DIGIT" : (state, payload) => {
+    "KEYBOARD_DIGIT"       : (state, payload) => {
         return {
             ...state,
             level : payload === 0 ? 10 : payload
@@ -95,9 +93,9 @@ export default createReducer({
 
         return {
             ...state,
-            elapsed : state.elapsed + 1,
+            elapsed    : state.elapsed + 1,
             gameStatus : isGameLost ? "GAME_LOST" : "IN_PROGRESS",
-            direction : state.nextDirection,
+            direction  : state.nextDirection,
             fruit,
             points,
             snake

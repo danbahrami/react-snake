@@ -1,15 +1,3 @@
-export const createBoard = (width, height) => {
-    let cells = []
-
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            cells.push({x, y})
-        }
-    }
-
-    return {width, height, cells}
-}
-
 export const createSnake = (length, boardWidth, boardHeight) => {
     let snake = []
 
@@ -23,7 +11,7 @@ export const createSnake = (length, boardWidth, boardHeight) => {
     return snake
 }
 
-export const createFruit = (boardCells, snake) => {
+export const createFruit = (boardWidth, boardHeight, snake) => {
     const freeCells = boardCells.filter((cell) => {
         return !isCellInArray(cell, snake)
     })
@@ -35,7 +23,7 @@ export const getNextSnake = (snake, snakeHead, hasJustEaten) => {
     let newSnake = [...snake]
     newSnake.push(snakeHead)
 
-    if(!hasJustEaten) {
+    if (!hasJustEaten) {
         newSnake.shift()
     }
 
@@ -55,15 +43,15 @@ export const getNextSnakeHead = (snake, direction) => {
 }
 
 export const isGameOver = (nextSnakeHead, snake, boardWidth, boardHeight) => {
-    if(isCellInArray(nextSnakeHead, snake)) {
+    if (isCellInArray(nextSnakeHead, snake)) {
         return true
     }
 
-    if(nextSnakeHead.x < 0 || nextSnakeHead.x >= boardWidth) {
+    if (nextSnakeHead.x < 0 || nextSnakeHead.x >= boardWidth) {
         return true
     }
 
-    if(nextSnakeHead.y < 0 || nextSnakeHead.y >= boardHeight) {
+    if (nextSnakeHead.y < 0 || nextSnakeHead.y >= boardHeight) {
         return true
     }
 
@@ -71,14 +59,14 @@ export const isGameOver = (nextSnakeHead, snake, boardWidth, boardHeight) => {
 }
 
 export const getNextDirection = (current, next, gameStatus) => {
-    if(gameStatus !== "IN_PROGRESS") {
+    if (gameStatus !== "IN_PROGRESS") {
         return current
     }
 
     const oppositeDirections = {
-        "UP" : "DOWN",
-        "DOWN" : "UP",
-        "LEFT" : "RIGHT",
+        "UP"    : "DOWN",
+        "DOWN"  : "UP",
+        "LEFT"  : "RIGHT",
         "RIGHT" : "LEFT"
     }
 

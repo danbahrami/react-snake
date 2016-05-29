@@ -17,7 +17,9 @@ const Cell = ({isSnake, isFruit, gameStatus}) => {
     }
 
     return (
-        <div style={style} />
+        <div style={style}>
+                
+        </div>
     )
 }
 
