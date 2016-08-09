@@ -1,7 +1,7 @@
 {
-  "name": "react-hot-boilerplate",
+  "name": "react-snake",
   "version": "1.0.0",
-  "description": "Boilerplate for ReactJS project with hot code reloading",
+  "description": "A retro game of snake built with React and Redux",
   "scripts": {
     "build": "export NODE_ENV=production && node_modules/.bin/webpack --config webpack.config.prod.js",
     "start": "node server.js",
@@ -9,25 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+    "url": "https://github.com/danbahrami/react-snake.git"
   },
   "keywords": [
     "react",
     "reactjs",
-    "boilerplate",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "webpack"
+    "snake",
+    "game",
+    "redux",
+    "retro"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "Dan Bahrami <dan.bahrami@googlemail.com> (http://github.com/danbahrami)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+    "url": "https://github.com/danbahrami/react-snake/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^4.1.3",
