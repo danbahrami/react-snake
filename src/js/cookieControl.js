@@ -1,12 +1,14 @@
 export function getCookie(name) {
-    const cookies = getAllCookies()
-
-    return cookies[name]
+    return getAllCookies()[name]
 }
 
 export function getAllCookies() {
-    let cookies = {}
-    const cookieStringSplit = document.cookie.split(" ")
+    if(typeof document === "undefined") {
+        return {}
+    }
+
+    let cookies             = {}
+    const cookieStringSplit = document.cookie.split(";")
 
     cookieStringSplit.map((string) => {
         let keyValSplit = string.split("=")
@@ -18,9 +20,8 @@ export function getAllCookies() {
 }
 
 export function setCookie(name, value) {
-    document.cookie = name + "=" + value + "; Path=/;"
-}
+    let expiry = new Date()
+    expiry.setFullYear(expiry.getFullYear() + 1)
 
-export function deleteCookie(name) {
-    document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"
+    document.cookie = `${name}=${encodeURI(value)};expires=${expiry.toUTCString()};path=/`
 }
