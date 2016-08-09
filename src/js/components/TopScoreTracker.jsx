@@ -2,10 +2,9 @@ import React from "react"
 import { connect } from "react-redux"
 import { getCookie, setCookie } from "../cookieControl"
 
-const {number} = React.PropTypes
-
 class TopScoreTracker extends React.Component {
-    componentDidMount() {
+    constructor(props) {
+        super(props)
         this.topScore = ::this.getCookie()
     }
 
@@ -22,9 +21,7 @@ class TopScoreTracker extends React.Component {
 
     render() {
         return (
-            <div>
-                <span>Top Score : {this.topScore}</span>
-            </div>
+            <div>Top Score : {this.topScore}</div>
         )
     }
 }

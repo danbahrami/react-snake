@@ -12,11 +12,19 @@ export const createSnake = (length, boardWidth, boardHeight) => {
 }
 
 export const createFruit = (boardWidth, boardHeight, snake) => {
-    const freeCells = boardCells.filter((cell) => {
-        return !isCellInArray(cell, snake)
-    })
+    let cells = []
 
-    return freeCells[getRandomInt(0, freeCells.length - 1)]
+    for (let y = 0; y < boardHeight; y++) {
+        for (let x = 0; x < boardWidth; x++) {
+            const cell = createCell(x, y)
+
+            if(!isCellInArray(cell, snake)) {
+                cells.push(cell)
+            }
+        }
+    }
+
+    return cells[getRandomInt(0, cells.length - 1)]
 }
 
 export const getNextSnake = (snake, snakeHead, hasJustEaten) => {

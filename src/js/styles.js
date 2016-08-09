@@ -34,7 +34,6 @@ export default {
             position   : "absolute",
             background : "#333333",
             dead       : {
-                ...Cell,
                 background : "red"
             }
         }

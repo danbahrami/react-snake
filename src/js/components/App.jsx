@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import * as actions from "../redux/actions"
 import KeyboardListener from "./KeyboardListener.jsx"
 import Ticker from "./Ticker.jsx"
 import GameBoard from "./GameBoard.jsx"
@@ -33,6 +32,7 @@ class App extends Component {
         return (
             <div style={styles.App}>
                 <span style={styles.title}>React Snake</span>
+
                 {gameStatus === "IN_PROGRESS" ? (
                     <Ticker interval={interval}/>
                 ) : null}

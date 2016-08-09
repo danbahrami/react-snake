@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "../styles"
 
-const {number, string} = React.PropTypes
+const {number} = React.PropTypes
 
 const ScoreBoard = ({points, level}) => {
     return (

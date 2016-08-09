@@ -1,24 +1,37 @@
 import React from "react"
 import styles from "../styles"
 
-const {} = React.PropTypes;
+const {arrayOf, bool, number, shape} = React.PropTypes
 
-const Snake = ({snake}) => {
+const Snake = ({snake, isDead}) => {
+    let style = styles.Cell.snake
+
+    if(isDead) {
+        style = {
+            ...style,
+            ...styles.Cell.snake.dead
+        }
+    }
+
     return (
         <div>
-            {snake.map((cell) => (
-                <div style={{
-                    ...styles.Cell.snake,
-                    top : cell.y * 10,
+            {snake.map((cell, index) => (
+                <div key={index} style={{
+                    ...style,
+                    top  : cell.y * 10,
                     left : cell.x * 10
-                }}></div>
+                }}/>
             ))}
         </div>
     )
 }
 
 Snake.propTypes = {
-
+    isDead : bool,
+    snake  : arrayOf(shape({
+        x : number,
+        y : number
+    }))
 }
 
 export default Snake

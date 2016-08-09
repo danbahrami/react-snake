@@ -1,47 +1,32 @@
 import React from "react"
 import { connect } from "react-redux"
-import { isCellInArray, isCell } from "../utils"
+import CellGrid from "./CellGrid.jsx"
 import Snake from "./Snake.jsx"
+import Fruit from "./Fruit.jsx"
 import * as actions from "../redux/actions"
 import styles from "../styles"
 
 class GameBoard extends React.Component {
-    componentDidMount() {
-        ::this.initialiseBoard()
-    }
-
-    initialiseBoard() {
-        this.props.dispatch(actions.initialiseBoard({
-            width  : this.refs.container.clientWidth,
-            height : this.refs.container.clientHeight
-        }))
-    }
-    
-    getCells() {
-        const {board : {width, height}} = this.props
-
-        let cells = []
-
-        while(cells.length < width * height) {
-            cells.push(width * height)
-        }
-
-        return cells
+    componentWillMount() {
+        this.props.dispatch(actions.initialiseBoard())
     }
 
     render() {
-        const {board : {width, height}} = this.props
-        const cells = ::this.getCells()
+        const {fruit, gameStatus, snake} = this.props
 
         return (
-            <div ref="container" style={styles.GameBoard}>
-                {cells.map((cell) => (
-                    <div style={styles.Cell} />
-                ))}
-                <Snake snake={this.props.snake}/>
+            <div style={styles.GameBoard}>
+                <CellGrid width={20} height={20}/>
+                <Fruit cell={fruit}/>
+                <Snake snake={snake} isDead={gameStatus === "GAME_LOST"}/>
             </div>
         )
     }
 }
 
-export default connect(state => state)(GameBoard)
+export default connect(state => ({
+    board      : state.board,
+    fruit      : state.fruit,
+    snake      : state.snake,
+    gameStatus : state.gameStatus
+}))(GameBoard)

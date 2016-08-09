@@ -10,9 +10,11 @@ import {
     getNextDirection
 } from "../utils"
 
-const setupNewGame = (state, width, height) => {
+const setupNewGame = (state) => {
+    const width = 20
+    const height = 20
     const snake = createSnake(5, width, height)
-    const fruit = createFruit(board.cells, snake)
+    const fruit = createFruit(width, height, snake)
 
     return {
         ...state,
@@ -78,7 +80,7 @@ export default createReducer({
     },
     "TICK"                 : (state) => {
         let snake = [...state.snake]
-        let fruit = {...state.fruit}
+        let fruit = state.fruit
         let points = state.points
 
         const snakeHead = getNextSnakeHead(state.snake, state.direction)
@@ -87,7 +89,7 @@ export default createReducer({
         if (!isGameLost) {
             const hasJustEaten = isCell(snakeHead, fruit)
             snake = getNextSnake(state.snake, snakeHead, hasJustEaten)
-            fruit = hasJustEaten ? createFruit(state.board.cells, snake) : state.fruit
+            fruit = hasJustEaten ? createFruit(state.board.width, state.board.height, snake) : state.fruit
             points = hasJustEaten ? points + state.level : points
         }
 
@@ -101,15 +103,7 @@ export default createReducer({
             snake
         }
     },
-    "INITIALISE_BOARD"     : (state, payload) => {
-        const {width, height} = payload
-
-        return setupNewGame(state, Math.floor(width / 10), Math.floor(height / 10))
-    },
-    "SET_BOARD_DIMENSIONS" : (state, payload) => {
-        return {
-            ...state,
-            board : createBoard(payload.width, payload.height)
-        }
+    "INITIALISE_BOARD"     : (state) => {
+        return setupNewGame(state)
     }
 }, initialState)

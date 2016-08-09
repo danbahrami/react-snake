@@ -1,15 +1,14 @@
 export default {
-    direction  : "RIGHT",
+    direction     : "RIGHT",
     nextDirection : "RIGHT",
-    elapsed    : 0,
-    gameStatus : "NOT_STARTED",
-    level : 5,
-    board : {
+    elapsed       : 0,
+    gameStatus    : "NOT_STARTED",
+    level         : 5,
+    board         : {
         width  : null,
-        height : null,
-        cells : []
+        height : null
     },
-    fruit : null,
-    points : 0,
-    snake : []
+    fruit         : null,
+    points        : 0,
+    snake         : []
 }
